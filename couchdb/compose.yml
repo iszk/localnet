@@ -1,0 +1,22 @@
+services:
+  couchdb:
+    image: docker.io/library/couchdb:3.5.0 # 特定のバージョンを指定することを推奨
+    container_name: couchdb
+    ports:
+      - "5984:5984"
+    volumes:
+      - couchdb_data:/opt/couchdb/data
+      - ./etc/local.ini:/opt/couchdb/etc/local.ini
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    env_file:
+      - .env
+    restart: unless-stopped
+    networks:
+      - tunnel
+
+volumes:
+  couchdb_data:
+
+networks:
+  tunnel:
+    external: true
