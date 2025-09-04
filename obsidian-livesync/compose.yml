@@ -1,19 +1,21 @@
 services:
   couchdb:
-    image: docker.io/library/couchdb:3.5.0 # 特定のバージョンを指定することを推奨
-    container_name: couchdb
+    image: docker.io/library/couchdb:3.4.3
+    container_name: obsidian-couchdb
     ports:
       - "5984:5984"
     volumes:
       - couchdb_data:/opt/couchdb/data
       - ./etc/local.ini:/opt/couchdb/etc/local.ini
-      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     env_file:
       - .env
     restart: unless-stopped
     networks:
       - tunnel
-
+    command: >
+      sh -c "chown $(id -u):$(id -g) /opt/couchdb/etc/local.ini &&
+             chmod a+w /opt/couchdb/etc/local.ini &&
+             exec /docker-entrypoint.sh /opt/couchdb/bin/couchdb"
 volumes:
   couchdb_data:
 
