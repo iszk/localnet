@@ -1,0 +1,33 @@
+services:
+  caddy:
+    container_name: caddy
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    networks:
+      - tunnel
+    volumes:
+      - type: bind
+        source: ./etc/caddy
+        target: /etc/caddy
+      - type: volume
+        source: caddy_data
+        target: /data
+      - type: volume
+        source: caddy_config
+        target: /config
+    ports:
+      - "80:80"
+      - "443:443"
+
+networks:
+  tunnel:
+    external: true
+
+volumes:
+  caddy_data:
+  caddy_config:
+

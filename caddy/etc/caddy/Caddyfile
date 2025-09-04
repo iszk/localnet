@@ -1,0 +1,19 @@
+{
+	acme_dns cloudflare {env.CF_API_TOKEN}
+}
+
+obsidian.equuss.org {
+	reverse_proxy obsidian-couchdb:5984
+}
+
+pihole.equuss.org {
+	reverse_proxy pihole:80
+}
+
+nas.equuss.org {
+	reverse_proxy 10.2.22.254:5000
+}
+
+btcbot.equuss.org {
+	reverse_proxy 10.2.22.250:9100
+}

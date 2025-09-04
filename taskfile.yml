@@ -1,0 +1,15 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  default:
+    desc: 'list all tasks'
+    cmds:
+      - task --list-all
+
+  caddy-reload:
+    desc: 'Caddyfileを再読み込みする'
+    dir: caddy
+    cmds:
+      - docker compose exec caddy caddy reload --config /etc/caddy/Caddyfile
