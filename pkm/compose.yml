@@ -1,0 +1,15 @@
+services:
+  webdav:
+    container_name: webdav
+    image: ghcr.io/hacdias/webdav:v5.9
+    ports:
+      - "6065:6065"
+    volumes:
+      - pkm-data:/data
+      - ./webdav/config.yml:/config.yml:ro
+    env_file:
+      - ./webdav/.env
+    restart: unless-stopped
+
+volumes:
+  pkm-data:
