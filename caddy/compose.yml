@@ -7,27 +7,23 @@ services:
       dockerfile: Dockerfile
     env_file:
       - .env
-    networks:
-      - tunnel
     volumes:
       - type: bind
         source: ./etc/caddy
         target: /etc/caddy
-      - type: volume
-        source: caddy_data
+      - type: bind
+        source: /mnt/nas/localnet/caddy/data
         target: /data
-      - type: volume
-        source: caddy_config
+      - type: bind
+        source: /mnt/nas/localnet/caddy/config
         target: /config
     ports:
       - "80:80"
       - "443:443"
+    networks:
+      - reverse-proxy
 
 networks:
-  tunnel:
+  reverse-proxy:
+    name: reverse-proxy
     external: true
-
-volumes:
-  caddy_data:
-  caddy_config:
-
