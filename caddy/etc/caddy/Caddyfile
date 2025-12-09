@@ -6,6 +6,20 @@ nas.equuss.org {
 	reverse_proxy 10.2.22.254:5000
 }
 
+proxmox.equuss.org {
+	reverse_proxy 10.2.22.252:8006 {
+		# ※ proxmox は 8006 番で自己証明書の https で待っている
+
+		# ホストヘッダーを正しく渡す（ProxmoxのCSRFチェック等に影響する場合があるため）
+		header_up Host {upstream_hostport}
+
+		transport http {
+			# Proxmoxのオレオレ証明書を許可
+			tls_insecure_skip_verify
+		}
+	}
+}
+
 btcbot.equuss.org {
 	reverse_proxy 10.2.22.250:9100
 }
