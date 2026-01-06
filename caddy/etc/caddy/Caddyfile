@@ -31,3 +31,7 @@ vkanban.equuss.org {
 pkm-dav.equuss.org {
 	reverse_proxy pkm-webdav:6065
 }
+
+immich.equuss.org {
+	reverse_proxy 10.2.23.202:2283
+}
